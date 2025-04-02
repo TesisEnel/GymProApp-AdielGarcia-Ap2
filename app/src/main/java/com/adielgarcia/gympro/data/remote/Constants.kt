@@ -23,3 +23,10 @@ class Rangos {
         const val MASTER = "Master"
     }
 }
+
+class Generos {
+    companion object{
+        const val MASCULINO = "Masculino"
+        const val FEMENINO = "Femenino"
+    }
+}
