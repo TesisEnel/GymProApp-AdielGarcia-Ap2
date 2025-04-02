@@ -15,6 +15,16 @@ fun outlinedTextFieldColors(
     unfocusedColor: Color = Color(0xC8FFFFFF),
 ): TextFieldColors {
     return OutlinedTextFieldDefaults.colors(
+        focusedTextColor = focusedColor,
+        unfocusedTextColor = unfocusedColor,
+
+        disabledTextColor = unfocusedColor,
+        disabledBorderColor = unfocusedColor,
+        disabledLabelColor = unfocusedColor,
+        disabledPlaceholderColor = unfocusedColor,
+        disabledLeadingIconColor = unfocusedColor,
+        disabledTrailingIconColor = unfocusedColor,
+
         focusedBorderColor = focusedColor,
         unfocusedBorderColor = unfocusedColor,
         focusedLabelColor = focusedColor,

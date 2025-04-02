@@ -3,7 +3,7 @@ package com.adielgarcia.gympro.utils.extensors
 import com.adielgarcia.gympro.data.remote.dto.utilities.fetching.GetUsuarioDto
 import com.adielgarcia.gympro.presentation.entitiesPresentation.ClientePresentation
 
-fun GetUsuarioDto.ExtractClienteData(): ClientePresentation {
+fun GetUsuarioDto.extractClienteData(): ClientePresentation {
     return ClientePresentation(
         clienteId = this.clienteId ?: 0,
         userId = this.userId,
