@@ -1,8 +1,12 @@
 package com.adielgarcia.gympro.presentation.perfil
 
+import com.adielgarcia.gympro.presentation.entitiesPresentation.ClientePresentation
+
 sealed interface ProfileEvents {
     data class LoadEntrenadorData(val id: Int) : ProfileEvents
     data class LoadSuscripcionData(val id: Int) : ProfileEvents
+    data class LoadData(val userData: ClientePresentation) : ProfileEvents
+
 
     data class OnUpdatePeso(val peso: Float) : ProfileEvents
     data class OnUpdateAltura(val altura: Float) : ProfileEvents

@@ -21,6 +21,7 @@ import com.adielgarcia.gympro.ui.theme.PrimaryColor
 
 @Composable
 fun EquipamientosScreen(
+    management: Boolean = false,
     viewModel: EquipamientosViewModel = hiltViewModel(),
     launchNotification: (String) -> Unit
 ) {
@@ -34,7 +35,7 @@ fun EquipamientosScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            "Equipamientos",
+            if (management) "Administrando Equipamientos" else "Equipamientos",
             fontFamily = BlackOpsOne,
             fontSize = 24.sp,
             textAlign = TextAlign.Center
@@ -47,15 +48,15 @@ fun EquipamientosScreen(
         LazyColumn(modifier = Modifier.padding(4.dp)) {
             uiState.equipamientos.forEach { equipamiento ->
                 item(key = equipamiento.equipoId) {
-                    GymProContentCard(Modifier.padding(vertical = 4.dp)) {
-                        Column(modifier= Modifier.padding(4.dp)) {
+                    GymProContentCard(Modifier.padding(vertical = 4.dp).fillMaxWidth()) {
+                        Column(modifier= Modifier.padding(4.dp).fillMaxWidth()) {
                             Text(
                                 text = equipamiento.nombre,
                                 fontSize = 20.sp,
                                 color = PrimaryColor,
                                 modifier = Modifier.padding(vertical = 4.dp)
                             )
-                            Text(text = "Descripción: ${equipamiento.descripcion}")
+                            Text(text = equipamiento.descripcion)
                         }
                     }
                 }

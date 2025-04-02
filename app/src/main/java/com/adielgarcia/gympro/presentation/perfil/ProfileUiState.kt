@@ -7,7 +7,7 @@ data class ProfileUiState(
     val entrenador: Entrenador? = null,
     val suscripcion: Suscripcion? = null,
 
-    val edad: String= "",
+
     val peso: String = "",
     val altura: String = "",
     val password: String = "",

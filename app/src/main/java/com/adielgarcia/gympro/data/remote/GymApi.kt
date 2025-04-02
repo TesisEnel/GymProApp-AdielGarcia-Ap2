@@ -42,7 +42,7 @@ interface GymApi {
     suspend fun getEntrenadorById(@Path("id") id: Int): Entrenador
 
     @PUT("/UpdateEntrenador")
-    suspend fun updateEntrenador(@Body entrenador: UpdateEntrenadorDto): Response
+    suspend fun updateEntrenador(@Body entrenador: UpdateEntrenadorDto)
     //#endregion
 
     //#region EQUIPAMIENTOS
@@ -56,10 +56,10 @@ interface GymApi {
     suspend fun addEquipamiento(@Body equipamiento: AddEquipamientoDto): Equipamiento
 
     @PUT("/UpdateEquipamiento")
-    suspend fun updateEquipamiento(@Body equipamiento: Equipamiento): Response
+    suspend fun updateEquipamiento(@Body equipamiento: Equipamiento)
 
     @DELETE("/DeleteEquipamiento/{id}")
-    suspend fun deleteEquipamiento(@Path("id") id: Int): Response
+    suspend fun deleteEquipamiento(@Path("id") id: Int)
     //#endregion
 
     //#region PRODUCTOS
@@ -73,10 +73,10 @@ interface GymApi {
     suspend fun addProducto(@Body producto: AddProductoDto): Producto
 
     @PUT("/UpdateProducto")
-    suspend fun updateProducto(@Body producto: Producto): Response
+    suspend fun updateProducto(@Body producto: Producto)
 
     @DELETE("/DeleteProducto/{id}")
-    suspend fun deleteProducto(@Path("id") id: Int): Response
+    suspend fun deleteProducto(@Path("id") id: Int)
     //#endregion
 
     //#region SUSCRIPCIONES
@@ -87,10 +87,10 @@ interface GymApi {
     suspend fun getSuscripcionById(@Path("id") id: Int): Suscripcion
 
     @PUT("/UpdateSuscripcion")
-    suspend fun updateSuscripcion(@Body suscripcion: Suscripcion): Response
+    suspend fun updateSuscripcion(@Body suscripcion: Suscripcion)
 
     @DELETE("/DeleteSuscripcion/{id}")
-    suspend fun deleteSuscripcion(@Path("id") id: Int): Response
+    suspend fun deleteSuscripcion(@Path("id") id: Int)
     //#endregion
 
     //#region USUARIOS

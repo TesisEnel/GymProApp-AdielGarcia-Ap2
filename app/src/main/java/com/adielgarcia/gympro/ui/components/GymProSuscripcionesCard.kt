@@ -57,13 +57,13 @@ fun SuscripcionCard(
                 .padding(20.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            Text(suscripcion.nombre, fontSize = 18.sp, color = Color.Black.copy(.3f))
-            Text("$" + suscripcion.precio, fontSize = 18.sp, color = Color.Black.copy(.3f))
+            Text(suscripcion.nombre, fontSize = 18.sp, color = Color.Black.copy(.4f))
+            Text("$" + suscripcion.precio, fontSize = 18.sp, color = Color.Black.copy(.4f))
         }
         Text(
             suscripcion.descripcion,
             textAlign = TextAlign.Center,
-            color = Color.Black.copy(.3f),
+            color = Color.Black.copy(.4f),
             modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
         )
     }

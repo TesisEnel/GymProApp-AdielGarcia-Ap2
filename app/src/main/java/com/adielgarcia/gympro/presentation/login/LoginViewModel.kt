@@ -20,7 +20,7 @@ class LoginViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState = _uiState.asStateFlow()
 
-    fun onEvent(event: LoginEvents) {
+    fun  onEvent(event: LoginEvents) {
         when (event) {
             is LoginEvents.UsernameChanged -> {
                 usernameChange(event.username)
@@ -86,8 +86,8 @@ class LoginViewModel @Inject constructor(
                         if (result.data == null) {
                             showNotification("No se encontro un usuario con esas credenciales")
                         } else {
-                            showNotification("Bienvenido ${result.data.username}")
                             navigateToMain(result.data, _uiState.value.adminMode)
+                            _uiState.value = LoginUiState()
                         }
                     }
 

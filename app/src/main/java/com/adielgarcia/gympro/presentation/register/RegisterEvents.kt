@@ -17,7 +17,8 @@ sealed interface RegisterEvents {
 
     data class OnLogin(val navigateToLogin: () -> Unit) : RegisterEvents
 
-    data class OnCreateAccount(val navigateToMain: (GetUsuarioDto) -> Unit, val showNotification: (String) -> Unit) : RegisterEvents
+    data class OnCreateAccount(val navigateToMain: (GetUsuarioDto) -> Unit,
+                               val showNotification: (String) -> Unit) : RegisterEvents
 
     data object OnNextStep : RegisterEvents
     data object OnPreviousStep : RegisterEvents

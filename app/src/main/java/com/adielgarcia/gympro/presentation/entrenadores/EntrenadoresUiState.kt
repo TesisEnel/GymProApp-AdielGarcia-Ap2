@@ -7,5 +7,5 @@ data class EntrenadoresUiState(
 
     val allEntrenadores: List<Entrenador> = emptyList(),
     val entrenadores: List<Entrenador> = emptyList(),
-
+    val selectedEntrenador: Entrenador? = null
 )

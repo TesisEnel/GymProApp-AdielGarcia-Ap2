@@ -25,6 +25,7 @@ import com.adielgarcia.gympro.presentation.soporte.SoporteScreen
 import com.adielgarcia.gympro.presentation.suscripciones.SuscripcionesScreen
 import com.adielgarcia.gympro.ui.components.GymProBottomBar
 import com.adielgarcia.gympro.ui.components.GymProDrawer
+import com.adielgarcia.gympro.utils.AdminNavItem
 import com.adielgarcia.gympro.utils.BottomBarItem
 import com.adielgarcia.gympro.utils.Screens
 import com.adielgarcia.gympro.utils.extensors.extractClienteData
@@ -79,12 +80,55 @@ fun MainLayout(
                 modifier = Modifier.padding(innerPadding)
             ) {
                 //#region ADMIN SCREENS
+                composable(AdminNavItem.ProductosItem.screen.route) {
+                    ProductosScreen(
+                        management = true,
+                        launchNotification = {
+                            scope.launch {
+                                snackbarHostState.showSnackbar(it)
+                            }
+                        }
+                    )
+                }
+                composable(AdminNavItem.EntrenadoresItem.screen.route) {
+                    EntrenadoresScreen(
+                        userData = loggedUser,
+                        management = true,
+                        launchNotification = {
+                            scope.launch {
+                                snackbarHostState.showSnackbar(it)
+                            }
+                        }
+                    )
+                }
+                composable(AdminNavItem.SuscripcionItem.screen.route) {
+                    SuscripcionesScreen(
+                        userData = loggedUser,
+                        management = true,
+                        launchNotification = {
+                            scope.launch {
+                                snackbarHostState.showSnackbar(it)
+                            }
+                        }
+                    )
+                }
 
+                composable(AdminNavItem.EquipamientosIcon.screen.route) {
+                    EquipamientosScreen(
+                        management = true,
+                        launchNotification = {
+                            scope.launch {
+                                snackbarHostState.showSnackbar(it)
+                            }
+                        }
+                    )
+                }
                 //#endregion
 
                 //#region CLIENTES SCREENS
                 composable(BottomBarItem.ProfileItem.route) {
                     ProfileScreen(
+                        goToEntrenadores = { navHost.navigate(BottomBarItem.EntrenadoresItem.route) },
                         userData = clienteLogged,
                         launchNotification = {
                             scope.launch {
@@ -93,6 +137,7 @@ fun MainLayout(
                         }
                     )
                 }
+
                 composable(BottomBarItem.ProductosItem.route) {
                     ProductosScreen(
                         launchNotification = {
@@ -113,6 +158,7 @@ fun MainLayout(
                 }
                 composable(BottomBarItem.SuscripcionItem.route) {
                     SuscripcionesScreen(
+                        userData = loggedUser,
                         launchNotification = {
                             scope.launch {
                                 snackbarHostState.showSnackbar(it)
@@ -122,6 +168,7 @@ fun MainLayout(
                 }
                 composable(BottomBarItem.EntrenadoresItem.route) {
                     EntrenadoresScreen(
+                        userData = loggedUser,
                         launchNotification = {
                             scope.launch {
                                 snackbarHostState.showSnackbar(it)
@@ -129,6 +176,7 @@ fun MainLayout(
                         }
                     )
                 }
+
                 composable(BottomBarItem.SoporteIcon.route) {
                     SoporteScreen()
                 }

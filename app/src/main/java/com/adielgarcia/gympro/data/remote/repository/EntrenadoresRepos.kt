@@ -7,6 +7,7 @@ import com.adielgarcia.gympro.data.remote.dto.utilities.edit.UpdateEntrenadorDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okhttp3.Response
+import retrofit2.HttpException
 import javax.inject.Inject
 
 class EntrenadoresRepos @Inject constructor(
@@ -30,11 +31,17 @@ class EntrenadoresRepos @Inject constructor(
             emit(Resource.Error(e.message ?: "Error al obtener entrenador"))
         }
     }
-    fun updateEntrenador(entrenador: UpdateEntrenadorDto): Flow<Resource<Response>> = flow {
+    fun updateEntrenador(entrenador: UpdateEntrenadorDto): Flow<Resource<Boolean>> = flow {
         emit(Resource.Loading())
         try {
             val response = dataSource.updateEntrenador(entrenador)
-            emit(Resource.Success(response))
+            emit(Resource.Success(true))
+        }catch(e: HttpException){
+            if(e.code() == 204) {
+                emit (Resource.Success(true))
+            }else {
+                emit(Resource.Error(e.message ?: "Error al actualizar producto"))
+            }
         } catch (e: Exception) {
             emit(Resource.Error(e.message ?: "Error al actualizar entrenador"))
         }

@@ -33,7 +33,8 @@ fun LoginWrapper() {
             ),
             onLogOut = {
                 userData = null; adminMode = false
-            })
+            }
+        )
     } else {//No logged in
         NavHost(navController = noLoggedNavController, startDestination = DefaultScreens.Login) {
             composable<DefaultScreens.Login> {

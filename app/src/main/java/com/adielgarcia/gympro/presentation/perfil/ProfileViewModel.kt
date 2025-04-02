@@ -37,6 +37,12 @@ class ProfileViewModel @Inject constructor(
             is ProfileEvents.SavePeso -> savePeso(event.id, event.showNotification)
             is ProfileEvents.SaveAltura -> saveAltura(event.id, event.showNotification)
             is ProfileEvents.SavePassword -> savePassword(event.id, event.showNotification)
+            is ProfileEvents.LoadData -> {
+                _uiState.value = _uiState.value.copy(
+                    peso = event.userData.peso.toString(),
+                    altura = event.userData.altura.toString()
+                )
+            }
         }
     }
 
@@ -117,7 +123,7 @@ class ProfileViewModel @Inject constructor(
                 .collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            showNotificacion("Altura actualizada")
+                            showNotificacion("Altura actualizada. Se aplicaran los cambios al reiniciar")
                         }
 
                         else -> {}
@@ -136,7 +142,7 @@ class ProfileViewModel @Inject constructor(
                 .collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            showNotificacion("Peso actualizado")
+                            showNotificacion("Peso actualizado. Se aplicaran los cambios al reiniciar")
                         }
 
                         else -> {}
