@@ -95,7 +95,7 @@ interface GymApi {
 
     //#region USUARIOS
 
-    @GET("/GetUsuariosByEntrenador/{id}")
+    @GET("/GetClientesByEntrenador/{id}")
     suspend fun getUsuariosByEntrenador(@Path("id") id: Int): List<GetUsuarioDto>
 
     @GET("/GetUsuarioById/{id}")
