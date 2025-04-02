@@ -20,12 +20,12 @@ val NormalCardColor2 = Color(0xFFE8E8E8)
 
 //Suscripcion Basica
 val Suscripcion1Color1 = Color(0xFF4398D1)
-val Suscripcion1Color2 = Color(0xFF3E8CC7)
+val Suscripcion1Color2 = Color(0xFF3A87C2)
 
 
 //Suscripcion regular
 val Suscripcion2Color1 = Color(0xFF88B337)
-val Suscripcion2Color2 = Color(0xFF80AB30)
+val Suscripcion2Color2 = Color(0xFF7CA72C)
 
 
 //Suscripcion regular
