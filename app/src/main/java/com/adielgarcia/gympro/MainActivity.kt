@@ -1,19 +1,13 @@
 package com.adielgarcia.gympro
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.adielgarcia.gympro.presentation.login.LoginScreen
-import com.adielgarcia.gympro.presentation.register.RegisterScreen
+import com.adielgarcia.gympro.presentation.general.LoginWrapper
 import com.adielgarcia.gympro.ui.theme.GymProTheme
+import com.adielgarcia.gympro.ui.theme.LockScreenOrientation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +17,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             GymProTheme {
-                RegisterScreen()
+                LockScreenOrientation(orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                LoginWrapper()
             }
         }
     }
