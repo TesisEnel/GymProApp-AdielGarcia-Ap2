@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object ApiModule {
-    private const val API_URL = "http://192.168.0.9:5135";
+    private const val API_URL = "http://192.168.56.1:5135";
 
     @Provides
     @Singleton
