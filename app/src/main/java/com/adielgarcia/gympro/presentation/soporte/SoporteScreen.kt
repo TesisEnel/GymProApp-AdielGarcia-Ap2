@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -48,7 +49,7 @@ fun SoporteScreen() {
         Image(
             painterResource(R.drawable.foreground),
             null,
-            modifier = Modifier.padding(bottom = 20.dp)
+            modifier = Modifier.size(100.dp).padding(bottom = 20.dp)
         )
         Text("GymPro", color = PrimaryColor, fontFamily = BlackOpsOne, fontSize = 30.sp)
         Text(
