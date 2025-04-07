@@ -11,5 +11,5 @@ sealed interface EntrenadoresEvents {
     data class OnEditEntrenador(val entrenador: UpdateEntrenadorDto) : EntrenadoresEvents
     data class OnAddEntrenador(val username: String, val rango: String) : EntrenadoresEvents
 
-    data class OnUserChangeEntrenador(val userId :Int, val oldEntrenadorId: Int, val newEntrenadorId: Int) : EntrenadoresEvents
+    data class OnUserChangeEntrenador(val userId :Int, val oldEntrenadorId: Int, val newEntrenadorId: Int, val onLogout: () -> Unit) : EntrenadoresEvents
 }

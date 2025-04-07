@@ -29,6 +29,7 @@ import com.adielgarcia.gympro.ui.components.GymProTitleCard
 import com.adielgarcia.gympro.ui.components.SearchbarType
 import com.adielgarcia.gympro.ui.components.SuscripcionCard
 import com.adielgarcia.gympro.ui.theme.PrimaryColor
+import com.adielgarcia.gympro.utils.extensors.maskCedula
 
 @Composable
 fun ProfileScreen(
@@ -75,7 +76,7 @@ fun ProfileScreen(
                             null
                         )
                         Text(
-                            text = userData.noIdentificacion,
+                            text = userData.noIdentificacion.maskCedula(),
                             modifier = Modifier.padding(start = 10.dp)
                         )
                     }

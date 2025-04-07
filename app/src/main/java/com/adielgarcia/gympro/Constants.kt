@@ -7,3 +7,6 @@ const val MAIL = "Adiel.garcia0422@gmail.com"
 const val DIRECCION = "La dirección avenída presidente Antonio Guzmán Fernández plaza García"
 
 const val TELEFONO = "809-512-4124"
+
+
+const val DEFAULT_COACH_PASSWORD = "Gympro123";

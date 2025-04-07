@@ -52,7 +52,9 @@ fun ClientesScreen(
             onSearch = { onEvent(ClientesEvents.OnSearchChange(it)) },
             modifier = Modifier.padding(vertical = 6.dp)
         )
-
+        if (uiState.clientes.isEmpty()) {
+            Text(text = "No hay clientes")
+        }
         LazyColumn(modifier = Modifier.padding(4.dp)) {
             uiState.clientes.forEach { cliente ->
                 item(key = cliente.clienteId) {

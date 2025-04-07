@@ -23,6 +23,7 @@ import com.adielgarcia.gympro.ui.components.GymProContentCard
 import com.adielgarcia.gympro.ui.components.SearchbarType
 import com.adielgarcia.gympro.ui.theme.BlackOpsOne
 import com.adielgarcia.gympro.ui.theme.PrimaryColor
+import com.adielgarcia.gympro.ui.theme.disabledTextfieldColors
 
 @Composable
 fun ProductoDialog(
@@ -71,6 +72,7 @@ fun ProductoDialog(
                     value = categoria,
                     onValueChange = { },
                     readOnly = true,
+                    colors = disabledTextfieldColors(),
                     enabled = false,
                     label = { Text("Categoria") },
                     modifier = Modifier

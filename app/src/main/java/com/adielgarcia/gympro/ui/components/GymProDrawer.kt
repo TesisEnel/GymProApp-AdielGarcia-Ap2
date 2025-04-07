@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.SettingsSuggest
+import androidx.compose.material3.DrawerState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalDrawerSheet
@@ -48,11 +49,14 @@ fun GymProDrawer(
     adminMode: Boolean,
     user: GetUsuarioDto,
     onLogout: () -> Unit,
+    drawerState: DrawerState,
+    onChangeClave: () -> Unit,
     onNavigateTo: (String) -> Unit,
     content: @Composable () -> Unit
 ) {
 
     ModalNavigationDrawer(
+        drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet {
                 Column(modifier = Modifier.fillMaxSize()) {
@@ -106,7 +110,12 @@ fun GymProDrawer(
                             .fillMaxWidth()
                             .weight(8.5f)
                     ) {
-
+                        Text(
+                            "Cambiar contraseña",
+                            modifier = Modifier
+                                .padding(10.dp)
+                                .clickable { onChangeClave() })
+                        HorizontalDivider(modifier = Modifier.padding(bottom = 10.dp))
                         when (user.rol) {
                             Roles.CLIENTE -> {
                                 val items = listOf(
@@ -135,12 +144,11 @@ fun GymProDrawer(
                                 }
                             }
                             //Vacio por el momento
-                            Roles.ENTRENADOR -> {
-
-                            }
+                            Roles.ENTRENADOR -> {}
                         }
                         if (adminMode) {
                             var adminExpanded by remember { mutableStateOf(false) }
+                            HorizontalDivider(modifier = Modifier.padding(bottom = 10.dp))
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()

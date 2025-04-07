@@ -8,14 +8,11 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.adielgarcia.gympro.data.remote.Roles
 import com.adielgarcia.gympro.data.remote.dto.utilities.fetching.GetUsuarioDto
-import com.adielgarcia.gympro.presentation.MainLayout
+import com.adielgarcia.gympro.presentation.mainlayout.MainLayout
 import com.adielgarcia.gympro.presentation.login.LoginScreen
 import com.adielgarcia.gympro.presentation.register.RegisterScreen
-import com.adielgarcia.gympro.utils.BottomBarItem
 import com.adielgarcia.gympro.utils.DefaultScreens
-import com.adielgarcia.gympro.utils.Screens
 
 @Composable
 fun LoginWrapper() {
@@ -54,6 +51,7 @@ fun LoginWrapper() {
                     }
                 ) { data ->
                     userData = data
+                    noLoggedNavController.navigate(DefaultScreens.Login)
                 }
             }
         }

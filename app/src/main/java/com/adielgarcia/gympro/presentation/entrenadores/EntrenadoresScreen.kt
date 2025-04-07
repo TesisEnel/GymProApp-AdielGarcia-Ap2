@@ -1,5 +1,6 @@
 package com.adielgarcia.gympro.presentation.entrenadores
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -26,7 +28,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.adielgarcia.gympro.DEFAULT_COACH_PASSWORD
 import com.adielgarcia.gympro.data.remote.dto.utilities.fetching.GetUsuarioDto
+import com.adielgarcia.gympro.ui.components.ConfirmacionDialog
 import com.adielgarcia.gympro.ui.components.GymProContentCard
 import com.adielgarcia.gympro.ui.components.GymProSearchbar
 import com.adielgarcia.gympro.ui.components.GymProTitleCard
@@ -37,6 +41,8 @@ import com.adielgarcia.gympro.ui.theme.PrimaryColor
 fun EntrenadoresScreen(
     management: Boolean = false,
     userData: GetUsuarioDto,
+    admin : Boolean,
+    onLogout: (() -> Unit)? = null,
     viewmodel: EntrenadoresViewModel = hiltViewModel(),
     launchNotification: (String) -> Unit
 ) {
@@ -44,6 +50,8 @@ fun EntrenadoresScreen(
     val onEvent = viewmodel::onEvent
 
     var onCrear by remember { mutableStateOf(false) }
+    var entrenadorId by remember { mutableIntStateOf(0) }
+
     if (uiState.selectedEntrenador != null || onCrear) {
         EntrenadorDialog(
             entrenador = uiState.selectedEntrenador,
@@ -56,9 +64,25 @@ fun EntrenadoresScreen(
             },
             onCreate = { nombre, categoria ->
                 onEvent(EntrenadoresEvents.OnAddEntrenador(nombre, categoria))
+                launchNotification("Entrenador creado exitosamente con la contraseña '$DEFAULT_COACH_PASSWORD'")
             },
             onModify = { ent ->
                 onEvent(EntrenadoresEvents.OnEditEntrenador(ent))
+            }
+        )
+    }
+    if (entrenadorId != 0) {
+        ConfirmacionDialog(
+            title = "¿Estas seguro que quieres cambiar de entrenador?",
+            message = "¡Esta operacion te cerrará la sesion actual!",
+            onDismiss = { entrenadorId = 0},
+            onConfirm = {
+                onEvent(EntrenadoresEvents.OnUserChangeEntrenador(
+                    userId = userData.userId,
+                    oldEntrenadorId = userData.entrenadorId ?: 0,
+                    newEntrenadorId = entrenadorId,
+                    onLogout = onLogout ?: {}
+                ))
             }
         )
     }
@@ -88,6 +112,9 @@ fun EntrenadoresScreen(
                 onSearch = { onEvent(EntrenadoresEvents.OnSearchChange(it)) },
                 modifier = Modifier.padding(vertical = 6.dp)
             )
+            if (uiState.entrenadores.isEmpty()) {
+                Text(text = "No hay entrenadores")
+            }
             LazyColumn(modifier = Modifier.padding(4.dp)) {
                 uiState.entrenadores.forEach { entrenador ->
                     item(key = entrenador.entrenadorId) {
@@ -101,14 +128,15 @@ fun EntrenadoresScreen(
                                             )
                                         )
                                     } else {
-                                        onEvent(
-                                            EntrenadoresEvents.OnUserChangeEntrenador(
-                                                userData.userId,
-                                                userData.entrenadorId ?: 0,
-                                                entrenador.entrenadorId
-                                            )
-                                        )
-                                        launchNotification("Entrenador seleccionar ${entrenador.username}. Los cambios se aplicarán al reiniciar.")
+                                        if (userData.suscripcionId == 1) {
+                                            launchNotification("Tu suscripcion no incluye a un entrenador. Si quieres un entrenador debes cambiar de suscripcion")
+                                            return@clickable;
+                                        }
+                                        if (entrenador.entrenadorId == userData.entrenadorId) {
+                                            launchNotification("No puedes cambiar a tu mismo entrenador")
+                                            return@clickable;
+                                        }
+                                        entrenadorId = entrenador.entrenadorId
                                     }
                                 }
                                 .padding(vertical = 4.dp)
@@ -125,7 +153,7 @@ fun EntrenadoresScreen(
                                     horizontalArrangement = Arrangement.SpaceBetween,
                                     modifier = Modifier.fillMaxWidth()
                                 ) {
-                                    Row() {
+                                    Row {
                                         Icon(
                                             imageVector = Icons.Filled.Person, null
                                         )
@@ -137,7 +165,7 @@ fun EntrenadoresScreen(
                                             modifier = Modifier.padding(vertical = 4.dp)
                                         )
                                     }
-                                    Row() {
+                                    Row {
                                         Icon(
                                             imageVector = Icons.Default.Verified, null
                                         )
@@ -146,12 +174,13 @@ fun EntrenadoresScreen(
                                             modifier = Modifier.padding(vertical = 4.dp)
                                         )
                                     }
-
                                 }
-                                Text(
-                                    text = "${entrenador.clientesInscritos} clientes inscritos",
-                                    modifier = Modifier.padding(vertical = 4.dp)
-                                )
+                                if(admin){
+                                    Text(
+                                        text = "${entrenador.clientesInscritos} clientes inscritos",
+                                        modifier = Modifier.padding(vertical = 4.dp)
+                                    )
+                                }
                             }
                         }
                     }

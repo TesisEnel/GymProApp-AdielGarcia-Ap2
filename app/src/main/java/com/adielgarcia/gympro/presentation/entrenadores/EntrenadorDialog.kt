@@ -23,6 +23,7 @@ import com.adielgarcia.gympro.data.remote.dto.utilities.edit.UpdateEntrenadorDto
 import com.adielgarcia.gympro.ui.components.GymProContentCard
 import com.adielgarcia.gympro.ui.theme.BlackOpsOne
 import com.adielgarcia.gympro.ui.theme.PrimaryColor
+import com.adielgarcia.gympro.ui.theme.disabledTextfieldColors
 
 @Composable
 fun EntrenadorDialog(
@@ -50,6 +51,7 @@ fun EntrenadorDialog(
                 OutlinedTextField(
                     value = nombre,
                     readOnly = entrenador != null,
+                    enabled = entrenador == null,
                     onValueChange = { nombre = it },
                     label = { Text("Nombre") },
                     modifier = Modifier
@@ -57,12 +59,14 @@ fun EntrenadorDialog(
                         .padding(bottom = 10.dp)
                 )
 
+
                 var rangosExpanded by remember { mutableStateOf(false) }
 
                 OutlinedTextField(
                     value = rango,
                     onValueChange = { },
                     readOnly = true,
+                    colors = disabledTextfieldColors(),
                     enabled = false,
                     label = { Text("Rango") },
                     modifier = Modifier

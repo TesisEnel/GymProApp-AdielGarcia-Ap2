@@ -13,7 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.adielgarcia.gympro.data.remote.dto.entities.Suscripcion
@@ -31,6 +31,7 @@ fun SuscripcionCard(
     suscripcion: Suscripcion,
     modifier: Modifier = Modifier,
     readonly: Boolean = false,
+    selected: Boolean = false,
     onItemClick: ((Suscripcion) -> Unit)? = null
 ) {
     val colors = when (suscripcion.suscripcionId) {
@@ -49,21 +50,31 @@ fun SuscripcionCard(
         modifier = cardModifier
             .fillMaxWidth()
             .background(brush = diagonalGradient(colors = colors), shape = RoundedCornerShape(4.dp))
-            .border(1.dp, Color.Black.copy(alpha = 0.1f))
+            .border(1.dp, Color.Black.copy(alpha = 0.2f))
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(20.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(suscripcion.nombre, fontSize = 18.sp, color = Color.Black.copy(.4f))
-            Text("$" + suscripcion.precio, fontSize = 18.sp, color = Color.Black.copy(.4f))
+            Text(
+                suscripcion.nombre,
+                fontSize = 18.sp,
+                color = Color.Black.copy(.45f),
+                fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal
+            )
+            Text(
+                "$" + suscripcion.precio,
+                fontSize = 18.sp,
+                color = Color.Black.copy(.45f),
+                fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal
+            )
         }
         Text(
             suscripcion.descripcion,
-            textAlign = TextAlign.Center,
-            color = Color.Black.copy(.4f),
+            color = Color.Black.copy(.45f),
+            fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
             modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 20.dp)
         )
     }

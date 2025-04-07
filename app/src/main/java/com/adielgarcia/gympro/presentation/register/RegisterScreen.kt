@@ -12,21 +12,25 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material.icons.outlined.Balance
 import androidx.compose.material.icons.outlined.CoPresent
 import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.LockReset
+import androidx.compose.material.icons.outlined.Straighten
+import androidx.compose.material.icons.twotone.Visibility
+import androidx.compose.material.icons.twotone.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
@@ -36,15 +40,21 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -57,6 +67,7 @@ import com.adielgarcia.gympro.ui.theme.BlackOpsOne
 import com.adielgarcia.gympro.ui.theme.SecondaryColor
 import com.adielgarcia.gympro.ui.theme.Suscripcion1Color1
 import com.adielgarcia.gympro.ui.theme.White
+import com.adielgarcia.gympro.ui.theme.disabledTextfieldColors
 import kotlinx.coroutines.launch
 
 @Composable
@@ -72,14 +83,16 @@ fun RegisterScreen(
     val snackbarHostState = remember { SnackbarHostState() }
 
     val context = LocalContext.current
-    val showDatePicker = remember { mutableStateOf(false) }
+    var showDatePicker by remember { mutableStateOf(false) }
 
-    if (showDatePicker.value) {
+    val focusManager = LocalFocusManager.current
+
+    if (showDatePicker) {
         ShowDatePickerDialog(
             context = context,
             onDateSelected = { selectedDate ->
                 onEvent(RegisterEvents.FechaNacimientoChanged(selectedDate))
-                showDatePicker.value = false
+                showDatePicker = false
             }
         )
     }
@@ -91,7 +104,6 @@ fun RegisterScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(SecondaryColor)
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -103,11 +115,10 @@ fun RegisterScreen(
                 modifier = Modifier.padding(16.dp)
             )
 
-            Text(text = "GymPro", fontFamily = BlackOpsOne, fontSize = 28.sp, color = White)
+            Text(text = "GymPro", fontFamily = BlackOpsOne, fontSize = 28.sp)
             Text(
                 text = "By Adiel Garcia y Erick Peña",
                 modifier = Modifier.padding(bottom = 30.dp),
-                color = White
             )
             Spacer(modifier = Modifier.height(20.dp))
             Column(
@@ -116,7 +127,7 @@ fun RegisterScreen(
                     .padding(horizontal = 10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Crea una cuenta", color = White)
+                Text(text = "Crea una cuenta", fontSize = 20.sp)
                 when (uiState.currentStep) {
                     1 -> {
                         OutlinedTextField(
@@ -128,14 +139,22 @@ fun RegisterScreen(
                             },
                             value = uiState.username,
                             onValueChange = { onEvent(RegisterEvents.UsernameChanged(it)) },
-                            colors = outlinedTextFieldColors(),
                             label = { Text(text = "Nombre de usuario") },
-
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Text,
+                                imeAction = ImeAction.Next
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onNext = { focusManager.moveFocus(focusDirection = FocusDirection.Down) }
+                            ),
+                            maxLines = 1,
+                            singleLine = true,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 10.dp)
 
                         )
+                        var passwordVisibility by remember { mutableStateOf(false) }
                         OutlinedTextField(
                             leadingIcon = {
                                 Icon(
@@ -143,17 +162,32 @@ fun RegisterScreen(
                                     null
                                 )
                             },
+                            trailingIcon = {
+                                Icon(
+                                    if (passwordVisibility) Icons.TwoTone.Visibility else Icons.TwoTone.VisibilityOff,
+                                    null,
+                                    modifier = Modifier.clickable {
+                                        passwordVisibility = !passwordVisibility
+                                    }
+                                )
+                            },
                             value = uiState.password,
                             onValueChange = { onEvent(RegisterEvents.PasswordChanged(it)) },
-                            colors = outlinedTextFieldColors(),
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                            visualTransformation = PasswordVisualTransformation(),
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Password,
+                                imeAction = ImeAction.Next
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onNext = { focusManager.moveFocus(focusDirection = FocusDirection.Down) }
+                            ),
+                            visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
                             label = { Text(text = "Contraseña") },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 10.dp)
                         )
 
+                        var repeatedPasswordVisibility by remember { mutableStateOf(false) }
                         OutlinedTextField(
                             leadingIcon = {
                                 Icon(
@@ -161,11 +195,25 @@ fun RegisterScreen(
                                     null
                                 )
                             },
+                            trailingIcon = {
+                                Icon(
+                                    if (repeatedPasswordVisibility) Icons.TwoTone.Visibility else Icons.TwoTone.VisibilityOff,
+                                    null,
+                                    modifier = Modifier.clickable {
+                                        repeatedPasswordVisibility = !repeatedPasswordVisibility
+                                    }
+                                )
+                            },
                             value = uiState.repeatedPassword,
                             onValueChange = { onEvent(RegisterEvents.RepeatedPasswordChanged(it)) },
-                            colors = outlinedTextFieldColors(),
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                            visualTransformation = PasswordVisualTransformation(),
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Password,
+                                imeAction = ImeAction.Done
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onDone = { focusManager.clearFocus(); onEvent(RegisterEvents.OnNextStep) }
+                            ),
+                            visualTransformation = if (repeatedPasswordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
                             label = { Text(text = "Confirmar contraseña") },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -182,40 +230,23 @@ fun RegisterScreen(
                                     null
                                 )
                             },
+                            maxLines = 1,
+                            singleLine = true,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Number,
+                                imeAction = ImeAction.Next
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onNext = { focusManager.moveFocus(focusDirection = FocusDirection.Down) }
+                            ),
                             value = uiState.noIdentificacion,
                             onValueChange = { onEvent(RegisterEvents.NoIdentificacionChanged(it)) },
-
-                            colors = outlinedTextFieldColors(),
                             label = { Text(text = "Número de identificación") },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 10.dp)
                         )
-                        OutlinedTextField(
-                            leadingIcon = {
-                                Icon(
-                                    Icons.Outlined.DateRange,
-                                    null
-                                )
-                            },
-                            trailingIcon = {
-                                IconButton(onClick = { showDatePicker.value = true }) {
-                                    Icon(
-                                        imageVector = Icons.Default.CalendarToday,
-                                        contentDescription = "Seleccionar Fecha"
-                                    )
-                                }
-                            },
 
-                            readOnly = true,
-                            value = uiState.fechaNacimiento,
-                            onValueChange = { onEvent(RegisterEvents.FechaNacimientoChanged(it)) },
-                            colors = outlinedTextFieldColors(),
-                            label = { Text(text = "Fecha de nacimiento") },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 10.dp)
-                        )
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -224,15 +255,19 @@ fun RegisterScreen(
                             OutlinedTextField(
                                 leadingIcon = {
                                     Icon(
-                                        Icons.Outlined.AccountCircle,
+                                        Icons.Outlined.Balance,
                                         null
                                     )
                                 },
                                 value = uiState.peso.toString(),
+
                                 onValueChange = { onEvent(RegisterEvents.PesoChanged(it.toFloat())) },
-                                colors = outlinedTextFieldColors(),
                                 keyboardOptions = KeyboardOptions(
-                                    keyboardType = KeyboardType.Number
+                                    keyboardType = KeyboardType.Number,
+                                    imeAction = ImeAction.Next
+                                ),
+                                keyboardActions = KeyboardActions(
+                                    onNext = { focusManager.moveFocus(focusDirection = FocusDirection.Right) }
                                 ),
                                 label = { Text(text = "Peso (Lbs)") },
                                 modifier = Modifier
@@ -242,7 +277,7 @@ fun RegisterScreen(
                             OutlinedTextField(
                                 leadingIcon = {
                                     Icon(
-                                        Icons.Outlined.AccountCircle,
+                                        Icons.Outlined.Straighten,
                                         null
                                     )
 
@@ -250,9 +285,12 @@ fun RegisterScreen(
                                 value = uiState.altura.toString(),
                                 onValueChange = { onEvent(RegisterEvents.AlturaChanged(it.toFloat())) },
                                 keyboardOptions = KeyboardOptions(
-                                    keyboardType = KeyboardType.Number
+                                    keyboardType = KeyboardType.Number,
+                                    imeAction = ImeAction.Done
                                 ),
-                                colors = outlinedTextFieldColors(),
+                                keyboardActions = KeyboardActions(
+                                    onDone = { focusManager.clearFocus() }
+                                ),
                                 label = { Text(text = "Altura (Mts)") },
                                 modifier = Modifier
                                     .padding(start = 5.dp)
@@ -260,6 +298,29 @@ fun RegisterScreen(
                             )
 
                         }
+                        OutlinedTextField(
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.DateRange,
+                                    null
+                                )
+                            },
+                            trailingIcon = {
+                                Icon(
+                                    imageVector = Icons.Default.CalendarToday,
+                                    contentDescription = "Seleccionar Fecha"
+                                )
+                            },
+                            readOnly = true, enabled = false,
+                            value = uiState.fechaNacimiento,
+                            colors = disabledTextfieldColors(),
+                            onValueChange = { onEvent(RegisterEvents.FechaNacimientoChanged(it)) },
+                            label = { Text(text = "Fecha de nacimiento") },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { showDatePicker = true }
+                                .padding(vertical = 10.dp)
+                        )
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceEvenly
@@ -269,7 +330,7 @@ fun RegisterScreen(
                                     selected = uiState.genero == Generos.MASCULINO,
                                     onClick = { onEvent(RegisterEvents.GeneroChanged(Generos.MASCULINO)) }
                                 )
-                                Text(text = Generos.MASCULINO, color = White)
+                                Text(text = Generos.MASCULINO, color = SecondaryColor)
 
                             }
                             Column {
@@ -278,7 +339,7 @@ fun RegisterScreen(
                                     selected = uiState.genero == Generos.FEMENINO,
                                     onClick = { onEvent(RegisterEvents.GeneroChanged(Generos.FEMENINO)) }
                                 )
-                                Text(text = Generos.FEMENINO, color = White)
+                                Text(text = Generos.FEMENINO, color = SecondaryColor)
                             }
 
                         }
@@ -298,19 +359,20 @@ fun RegisterScreen(
                                 enabled = false,
                                 readOnly = true,
                                 label = { Text("Selecciona la suscripción") },
-                                colors = outlinedTextFieldColors(),
                                 trailingIcon = {
                                     Icon(
                                         imageVector = Icons.Filled.ArrowDropDown,
                                         contentDescription = null,
-                                        modifier = Modifier.clickable {
-                                            expanded.value = !expanded.value
-                                        }
-                                    )
+
+                                        )
                                 },
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(bottom = 10.dp)
+                                    .clickable {
+                                        expanded.value = !expanded.value
+                                    },
+                                colors = disabledTextfieldColors()
                             )
 
                             DropdownMenu(
@@ -319,7 +381,6 @@ fun RegisterScreen(
                                 modifier = Modifier
                                     .fillMaxWidth(0.7f)
                                     .background(White)
-                                    .padding(bottom = 50.dp)
                             ) {
                                 uiState.suscripciones.forEach { subscription ->
                                     DropdownMenuItem(
@@ -377,8 +438,7 @@ fun RegisterScreen(
                                     }
                                 )
                             )
-                        },
-                        colors = containedButtonColors()
+                        }
                     ) {
                         Text(text = "CREAR CUENTA")
                     }
@@ -400,7 +460,7 @@ fun RegisterScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                Text("¿Ya tienes una cuenta?", color = White)
+                Text("¿Ya tienes una cuenta?")
                 TextButton(onClick = navigateToLogin) {
                     Text(
                         text = "Inicia sesión",

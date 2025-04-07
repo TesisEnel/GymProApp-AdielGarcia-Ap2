@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object ApiModule {
-    private const val API_URL = "http://192.168.56.1:5135";
+    private const val API_URL = "https://gympro-api-cdb5gwcjffh9hqdw.eastus-01.azurewebsites.net/";
 
     @Provides
     @Singleton
@@ -28,7 +28,6 @@ object ApiModule {
     @Provides
     @Singleton
     fun provideTicketingApi(moshi: Moshi): GymApi {
-
         return Retrofit.Builder()
             .baseUrl(API_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))

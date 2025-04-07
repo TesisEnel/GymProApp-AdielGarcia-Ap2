@@ -122,7 +122,7 @@ interface GymApi {
     @PUT("/ChangeEntrenador")
     suspend fun changeEntrenador(@Body dto: ChangeEntrenadorDto): Boolean
 
-    @PUT("/UpdateSuscripcion")
+    @PUT("/ChangeSuscripcion")
     suspend fun updateSuscripcion(@Body suscripcion: ChangeSuscripcionDto): Boolean
 
     @DELETE("/DeleteAccount/{id}")

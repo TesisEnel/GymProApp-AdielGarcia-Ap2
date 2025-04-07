@@ -62,18 +62,14 @@ class EntrenadoresViewModel @Inject constructor(
             is EntrenadoresEvents.OnAddEntrenador -> {
                 onAddEntrenador(event.username, event.rango)
             }
+
             is EntrenadoresEvents.OnUserChangeEntrenador -> {
-                viewModelScope.launch {
-                    userRepos.changeEntrenador(
-                        ChangeEntrenadorDto(
-                            event.userId,
-                            event.newEntrenadorId,
-                            event.oldEntrenadorId,
-                        )
-                    ).collect {
-                        getEntrenadores()
-                    }
-                }
+                onChangeEntrenador(
+                    event.userId,
+                    event.oldEntrenadorId,
+                    event.newEntrenadorId,
+                    event.onLogout
+                )
             }
         }
     }
@@ -95,6 +91,25 @@ class EntrenadoresViewModel @Inject constructor(
 
                     else -> {}
                 }
+            }
+        }
+    }
+
+    private fun onChangeEntrenador(
+        userId: Int,
+        oldEntrenadorId: Int,
+        newEntrenadorId: Int,
+        onLogout: () -> Unit
+    ) {
+        viewModelScope.launch {
+            userRepos.changeEntrenador(
+                ChangeEntrenadorDto(
+                    userId = userId,
+                    newEntrenadorId = newEntrenadorId,
+                    oldEntrenadorId = oldEntrenadorId
+                )
+            ).collect {
+                onLogout()
             }
         }
     }

@@ -3,6 +3,7 @@ package com.adielgarcia.gympro.presentation.suscripciones
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adielgarcia.gympro.data.remote.Resource
+import com.adielgarcia.gympro.data.remote.dto.utilities.edit.ChangeEntrenadorDto
 import com.adielgarcia.gympro.data.remote.dto.utilities.edit.ChangeSuscripcionDto
 import com.adielgarcia.gympro.data.remote.repository.SuscripcionesRepos
 import com.adielgarcia.gympro.data.remote.repository.UsuariosRepos
@@ -35,7 +36,17 @@ class SuscripcionesViewModel @Inject constructor(
                             event.oldSuscripcionId
                         )
                     ).collect {
-                        loadSuscripciones()
+                        if (event.newSuscripcionId == 1) {
+                            userRepos.changeEntrenador(
+                                ChangeEntrenadorDto(
+                                    event.userId,
+                                    newEntrenadorId = 0,
+                                    event.oldEntrenadorId
+                                )
+                            ).collect{
+                                loadSuscripciones()
+                            }
+                        }
                     }
                 }
             }
