@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.data.remote.dto.utilities.edit
+package  com.adielgarcia.gympro.data.remote.dto.utilities.edit
 
 data class ChangeSuscripcionDto(
     val userId: Int,
