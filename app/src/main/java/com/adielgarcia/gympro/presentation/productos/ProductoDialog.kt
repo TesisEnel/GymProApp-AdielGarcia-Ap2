@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.presentation.productos
+package  com.adielgarcia.gympro.presentation.productos
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
