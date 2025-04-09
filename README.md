@@ -53,10 +53,7 @@
   <li>🚀 Ejecuta la app  y  despliega en <strong>Azure</strong>.</li>
 </ol>
 
-<h2>📷 Vista previa</h2>
-<p align="center">
-  <img src="https://via.placeholder.com/800x400.png?text=GymProApp+Dashboard+Preview" alt="Vista previa del Dashboard">
-</p>
+
 
 <h2>🧑‍💻 Equipo de desarrollo</h2>
 <ul>
