@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.presentation.equipamientos
+package  com.adielgarcia.gympro.presentation.equipamientos
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
