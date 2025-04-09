@@ -16,7 +16,7 @@
 
 <h2>📱 Descripción general</h2>
 <p>
-  <strong>GymProApp</strong> es una aplicación futurista diseñada para optimizar la administración de gimnasios. Desde la gestión de usuarios hasta ventas y control de entrenadores, GymProApp brinda una experiencia intuitiva, rápida y 100% digital.
+  <strong>GymProApp</strong> es una aplicación diseñada para optimizar la administración de gimnasios. Desde la gestión de usuarios hasta ventas y control de entrenadores, GymProApp brinda una experiencia intuitiva y rápida .
 </p>
 
 <h2>🧠 Tecnologías & Arquitectura</h2>
