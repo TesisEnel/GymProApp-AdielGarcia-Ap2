@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.presentation.entrenadores
+package  com.adielgarcia.gympro.presentation.entrenadores
 
 import android.util.Log
 import androidx.compose.foundation.clickable
