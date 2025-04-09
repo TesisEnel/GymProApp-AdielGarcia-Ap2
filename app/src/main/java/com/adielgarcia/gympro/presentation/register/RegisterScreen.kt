@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.presentation.register
+package  com.adielgarcia.gympro.presentation.register
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
