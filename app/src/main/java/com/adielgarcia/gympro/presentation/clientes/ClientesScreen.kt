@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.presentation.clientes
+package  com.adielgarcia.gympro.presentation.clientes
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

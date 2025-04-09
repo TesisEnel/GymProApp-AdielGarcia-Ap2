@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.data.remote.dto.entities
+package  com.adielgarcia.gympro.data.remote.dto.entities
 
 data class Producto(
     val productoId: Int,

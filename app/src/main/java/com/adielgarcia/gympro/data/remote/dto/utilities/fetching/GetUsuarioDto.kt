@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.data.remote.dto.utilities.fetching
+package  com.adielgarcia.gympro.data.remote.dto.utilities.fetching
 
 data class GetUsuarioDto(
     val userId: Int,

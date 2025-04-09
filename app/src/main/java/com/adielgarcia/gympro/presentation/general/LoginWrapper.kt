@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.presentation.general
+package  com.adielgarcia.gympro.presentation.general
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue

@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.presentation.entrenadores
+package  com.adielgarcia.gympro.presentation.entrenadores
 
 import com.adielgarcia.gympro.data.remote.dto.entities.Entrenador
 

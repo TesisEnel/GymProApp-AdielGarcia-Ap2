@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.presentation.register
+package  com.adielgarcia.gympro.presentation.register
 
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults

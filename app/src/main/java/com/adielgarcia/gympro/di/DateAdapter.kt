@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.di
+package  com.adielgarcia.gympro.di
 
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson

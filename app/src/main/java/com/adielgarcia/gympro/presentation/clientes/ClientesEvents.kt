@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.presentation.clientes
+package  com.adielgarcia.gympro.presentation.clientes
 
 sealed interface ClientesEvents {
     data class OnSearchChange(val search: String) : ClientesEvents
