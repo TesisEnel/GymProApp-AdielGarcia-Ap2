@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.presentation.entitiesPresentation
+package  com.adielgarcia.gympro.presentation.entitiesPresentation
 
 data class EntrenadorPresentation(
     val userId: Int,
