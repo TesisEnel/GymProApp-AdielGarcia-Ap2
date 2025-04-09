@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.presentation.clientes
+package  com.adielgarcia.gympro.presentation.clientes
 
 import com.adielgarcia.gympro.data.remote.dto.utilities.fetching.GetUsuarioDto
 
