@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.presentation.equipamientos
+package  com.adielgarcia.gympro.presentation.equipamientos
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
