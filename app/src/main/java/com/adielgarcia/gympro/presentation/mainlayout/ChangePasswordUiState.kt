@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.presentation.mainlayout
+package  com.adielgarcia.gympro.presentation.mainlayout
 
 data class ChangePasswordUiState(
     val oldPassword: String = "",
