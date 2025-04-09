@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Estado-En%20Desarrollo-yellow" alt="Estado del proyecto">
+  <img src="https://img.shields.io/badge/Estado-En%20Finalizado-yellow" alt="Estado del proyecto">
   <img src="https://img.shields.io/badge/Tech-C%23%20%7C%20Blazor%20%7C%20Kotlin-blueviolet" alt="Tecnologías">
   <img src="https://img.shields.io/badge/License-Académico-blue" alt="Licencia académica">
 </p>
@@ -31,7 +31,6 @@
 <ul>
   <li>👤 Registro y gestión de usuarios</li>
   <li>🏋️ Administración de entrenadores</li>
-  <li>📆 Control de asistencia diaria</li>
   <li>🛍️ Venta de ropa de gimnasio, proteínas y accesorios</li>
 </ul>
 
