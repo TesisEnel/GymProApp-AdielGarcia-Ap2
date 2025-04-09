@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.di
+package  com.adielgarcia.gympro.di
 
 import com.adielgarcia.gympro.data.remote.GymApi
 import com.squareup.moshi.Moshi

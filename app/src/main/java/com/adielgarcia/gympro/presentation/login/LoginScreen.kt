@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.presentation.login
+package  com.adielgarcia.gympro.presentation.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

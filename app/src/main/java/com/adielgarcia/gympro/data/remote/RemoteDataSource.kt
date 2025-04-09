@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.data.remote
+package  com.adielgarcia.gympro.data.remote
 
 import com.adielgarcia.gympro.data.remote.dto.entities.Equipamiento
 import com.adielgarcia.gympro.data.remote.dto.entities.Producto

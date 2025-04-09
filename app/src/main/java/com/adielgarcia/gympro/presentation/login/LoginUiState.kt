@@ -1,4 +1,4 @@
-package com.adielgarcia.gympro.presentation.login
+package  com.adielgarcia.gympro.presentation.login
 
 data class LoginUiState(
     val username: String = "",
